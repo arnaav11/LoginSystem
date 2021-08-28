@@ -38,13 +38,17 @@ def adminc(if_owner:bool = False):
             if Usrnm_add in filedict or Usrnm_add in filedict2:
                 print(f'{Usrnm_add} already exists!')
             else:
-                if if_admin == 'y':
+                if if_admin == 'y' and if_owner == True:
                     filedict2[Usrnm_add] = Usrnm_pass
                     filelist[1] = f'{str(filedict2)}\n'
                                        
                     File.seek(0)
                     File.truncate()
                     File.writelines(filelist)
+                    
+                elif if_admin == 'y' and if_owner == True:
+                    print('Only owners can add Admins.')
+                    
                 else:
                     filedict[Usrnm_add] = Usrnm_pass
                     filelist[0] = f'{str(filedict)}\n'
