@@ -46,7 +46,7 @@ def adminc(if_owner:bool = False):
                     File.truncate()
                     File.writelines(filelist)
                     
-                elif if_admin == 'y' and if_owner == True:
+                elif if_admin == 'y' and if_owner == False:
                     print('Only owners can add Admins.')
                     
                 else:
