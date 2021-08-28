@@ -9,7 +9,6 @@ passw = gp.getpass('Enter you password(no display): ')
 
 File = open('data.dat', 'r+')
 filelist = File.readlines()
-print(filelist)
 fileline1 = filelist[0][0:len(filelist[0])-1]
 fileline2 = filelist[1][0:len(filelist[1])-1]
 fileline3 = filelist[2]
