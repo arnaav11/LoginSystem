@@ -60,10 +60,10 @@ def adminc(if_owner:bool = False):
         
         elif Command == 'r':
             # Read the file but only write the usernames
-            print('\nUsers:')
+            print('\nUsers:\n')
             x = 1
             for key in filedict.keys():
-                print(f'\n{x}: {key}')
+                print(f'{x}: {key}')
                 x+=1
 
             x = 1
