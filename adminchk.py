@@ -1,24 +1,30 @@
-def adminc(if_owner:bool = False):
-    import getpass as gp
-    import ast
+def adminc(if_owner: bool = False):
 
+    """
+    A function for admins and owners to administrate accounts present in data.dat
+    
+    Uses Caeser cipher for encryption
+    """
+
+
+    import Caesar_Cipher as CC
 
     # Opening the file
     File = open('data.dat', 'r+')
-
+    lst = File.readlines()
+    flst = [lst[0][0:len(lst[0])-1], lst[1][0:len(lst[1])-1], lst[2][0:len(lst[2])]]
     # Creating a string for each line without the '\n' escape sequence
-    filelist = File.readlines()
-    fileline1 = filelist[0][0:len(filelist[0])-1]
-    fileline2 = filelist[1][0:len(filelist[1])-1]
-    fileline3 = filelist[2]
+    filelist = eval(CC.deCaeser_Cipher(str(flst)))
+    fileline1 = (filelist[0])
+    fileline2 = (filelist[1])
+    fileline3 = (filelist[2])
+    # Creating a Dictionary for each line(representing the level of the person in the Data) string
+    filedict = eval(fileline1)
+    filedict2 = eval(fileline2)
+    filedict3 = eval(fileline3)
 
-    # Creating a Dictionary for each line(representin the level of the perso in the company) string
-    filedict = ast.literal_eval(fileline1)
-    filedict2 = ast.literal_eval(fileline2)
-    filedict3 = ast.literal_eval(fileline3)
 
 
-    Command = 'o'
     # Making The whole process loop forever so you can do multiple processes
     while True:
         File = open('data.dat', 'r+')
@@ -58,7 +64,9 @@ def adminc(if_owner:bool = False):
                     filedict2[Usrnm_add] = Usrnm_pass
 
                     # Updating the List of all users' 2nd item's(The admins' line) string
-                    filelist[1] = f'{str(filedict2)}\n'
+                    filelist[1] = CC.Caeser_Cipher(f'{str(filedict2)}\n')
+                    filelist[0] = CC.Caeser_Cipher(f'{str(filedict)}\n')
+                    filelist[2] = CC.Caeser_Cipher(str(filedict3))
                     
                     # Updating the file
                     File.seek(0)
@@ -78,7 +86,9 @@ def adminc(if_owner:bool = False):
                     filedict[Usrnm_add] = Usrnm_pass
 
                     # Updating the List of all users' 1st item's(The users' line) string
-                    filelist[0] = f'{str(filedict)}\n'
+                    filelist[1] = CC.Caeser_Cipher(f'{str(filedict2)}\n')
+                    filelist[0] = CC.Caeser_Cipher(f'{str(filedict)}\n')
+                    filelist[2] = CC.Caeser_Cipher(str(filedict3))
                     
                     # Updating the file
                     File.seek(0)
@@ -128,8 +138,8 @@ def adminc(if_owner:bool = False):
             # Updating the list and the file
             File.seek(0)
             File.truncate()
-            filelist = [str(filedict)+'\n', str(filedict2)+'\n', str(filedict3)]
-            File.writelines(filelist)
+            filelist = [CC.Caeser_Cipher(str(filedict))+'\n', CC.Caeser_Cipher(str(filedict2))+'\n', CC.Caeser_Cipher(str(filedict3))]
+            File.writelines(CC.Caeser_Cipher(str(filelist)))
 
 
         elif Command == 'q':

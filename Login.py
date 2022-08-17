@@ -1,7 +1,6 @@
-import ast
 from adminchk import adminc
 import getpass as gp
-import UserApps
+import Caesar_Cipher as CC
 
 # Input the Username and Password
 usrnm = input('Enter your username: ')
@@ -9,17 +8,20 @@ passw = gp.getpass('Enter you password(no display): ')
 
 # Opening the file
 File = open('data.dat', 'r+')
+lst = File.readlines()
+
+flst = [lst[0][0:len(lst[0])-1], lst[1][0:len(lst[1])-1], lst[2][0:len(lst[2])]]
 
 # Creating a string for each line without the '\n' escape sequence
-filelist = File.readlines()
-fileline1 = filelist[0][0:len(filelist[0])-1]
-fileline2 = filelist[1][0:len(filelist[1])-1]
+filelist = eval(CC.deCaeser_Cipher(str(flst)))
+fileline1 = filelist[0][0:len(filelist[0])]
+fileline2 = filelist[1][0:len(filelist[1])]
 fileline3 = filelist[2]
 
-# Creating a Dictionary for each line(representin the level of the perso in the company) string
-filedict = ast.literal_eval(fileline1)
-filedict2 = ast.literal_eval(fileline2)
-filedict3 = ast.literal_eval(fileline3)
+# Creating a Dictionary for each line(representing the level of the person in the list) string
+filedict = eval(fileline1)
+filedict2 = eval(fileline2)
+filedict3 = eval(fileline3)
 
 
 # Checking if the person is a key in the admin dictionary and the password is its value to check
@@ -27,7 +29,7 @@ filedict3 = ast.literal_eval(fileline3)
 if usrnm in filedict2 and passw == filedict2[usrnm]:
         print("\nYou are an admin. You'll have access to all commands.")
         
-        # Running the 'adminc' function which I made as well WITHOUT specifying if_user
+        # Running the 'adminc' function which I made as well WITHOUT specifying if_owner
         # so it takes False as default
         adminc()
 
@@ -43,8 +45,6 @@ elif usrnm in filedict3 and passw == filedict3[usrnm]:
 # if the person is an user
 elif  usrnm in filedict and passw == filedict[usrnm]:
         print('\nLogin Successful!\n')
-        # Running the 'usrapps' function which i made
-        UserApps.usrapps()
 else:
     print('not allowed')
 
