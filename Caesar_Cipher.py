@@ -8,30 +8,11 @@ def Caeser_Cipher(string: str, Shift: int = 7):
 
     """
 
-    alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
     text_ciphered = ''
 
-    alpha_found = False
+
     for i in string:
-        for ii,jj in enumerate(alphabets):
-            global alpha_updated
-            if i == jj and alpha_found == False and i.lower() == i:
-                alpha_found = True
-                alpha_updated = alphabets[ii + Shift]
-            elif  i == jj.upper() and alpha_found == False and i.upper() == i:
-                alpha_found = True
-                alpha_updated = ALPHABETS[ii + Shift]
-
-            
-            
-        if alpha_found == True:
-                text_ciphered += alpha_updated
-        else:
-            text_ciphered += i
-
-        alpha_found = False
+        text_ciphered += chr(ord(i)+Shift)
 
     return(text_ciphered)
 
@@ -48,28 +29,8 @@ def deCaeser_Cipher(string: str, Shift: int = 7):
 
     text_deciphered = ''
 
-    alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-    ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    
-    alpha_found = False
     for i in string:
-        for ii,jj in enumerate(alphabets):
-            global alpha_updated
-            if i == jj and alpha_found == False and i.lower() == i:
-                alpha_found = True
-                alpha_updated = alphabets[ii - Shift]
-            elif  i == jj.upper() and alpha_found == False and i.upper() == i:
-                alpha_found = True
-                alpha_updated = ALPHABETS[ii - Shift]
-
-            
-            
-        if alpha_found == True:
-                text_deciphered += alpha_updated
-        else:
-            text_deciphered += i
-
-        alpha_found = False
+        text_deciphered += chr(ord(i) - Shift)
 
 
     return(text_deciphered)

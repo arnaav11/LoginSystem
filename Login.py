@@ -9,19 +9,27 @@ passw = gp.getpass('Enter you password(no display): ')
 # Opening the file
 File = open('data.dat', 'r+')
 lst = File.readlines()
-
-flst = [lst[0][0:len(lst[0])-1], lst[1][0:len(lst[1])-1], lst[2][0:len(lst[2])]]
-
+filelist = [(lst[0][0:len(lst[0])-1]), (lst[1][0:len(lst[1])-1]), (lst[2][0:len(lst[2])])]
 # Creating a string for each line without the '\n' escape sequence
-filelist = eval(CC.deCaeser_Cipher(str(flst)))
-fileline1 = filelist[0][0:len(filelist[0])]
-fileline2 = filelist[1][0:len(filelist[1])]
-fileline3 = filelist[2]
+fileline1 = (filelist[0])
+fileline2 = (filelist[1])
+fileline3 = (filelist[2])
 
-# Creating a Dictionary for each line(representing the level of the person in the list) string
-filedict = eval(fileline1)
-filedict2 = eval(fileline2)
-filedict3 = eval(fileline3)
+# Creating a Dictionary for each line(representing the level of the person in the Data) string
+fildict = eval(fileline1)
+fildict2 = eval(fileline2)
+fildict3 = eval(fileline3)
+
+filedict = {}
+filedict2 = {}
+filedict3 = {}
+
+for ii  in fildict.keys():
+        filedict[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict[ii])
+for ii  in fildict2.keys():
+        filedict2[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict2[ii])
+for ii  in fildict3.keys():
+        filedict3[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict3[ii])
 
 
 # Checking if the person is a key in the admin dictionary and the password is its value to check

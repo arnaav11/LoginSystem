@@ -1,3 +1,6 @@
+from logging import addLevelName
+
+
 def adminc(if_owner: bool = False):
 
     """
@@ -12,17 +15,27 @@ def adminc(if_owner: bool = False):
     # Opening the file
     File = open('data.dat', 'r+')
     lst = File.readlines()
-    flst = [lst[0][0:len(lst[0])-1], lst[1][0:len(lst[1])-1], lst[2][0:len(lst[2])]]
+    filelist = [(lst[0][0:len(lst[0])-1]), (lst[1][0:len(lst[1])-1]), (lst[2][0:len(lst[2])])]
     # Creating a string for each line without the '\n' escape sequence
-    filelist = eval(CC.deCaeser_Cipher(str(flst)))
     fileline1 = (filelist[0])
     fileline2 = (filelist[1])
     fileline3 = (filelist[2])
-    # Creating a Dictionary for each line(representing the level of the person in the Data) string
-    filedict = eval(fileline1)
-    filedict2 = eval(fileline2)
-    filedict3 = eval(fileline3)
 
+    # Creating a Dictionary for each line(representing the level of the person in the Data) string
+    fildict = eval(fileline1)
+    fildict2 = eval(fileline2)
+    fildict3 = eval(fileline3)
+
+    filedict = {}
+    filedict2 = {}
+    filedict3 = {}
+
+    for ii  in fildict.keys():
+        filedict[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict[ii])
+    for ii  in fildict2.keys():
+        filedict2[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict2[ii])
+    for ii  in fildict3.keys():
+        filedict3[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict3[ii])
 
 
     # Making The whole process loop forever so you can do multiple processes
@@ -61,12 +74,12 @@ def adminc(if_owner: bool = False):
                     
                     # Creating a new key in the admins dictionary as the username entered,
                     # then add its value as its password
-                    filedict2[Usrnm_add] = Usrnm_pass
+                    fildict2[CC.Caeser_Cipher(Usrnm_add)] = CC.Caeser_Cipher(Usrnm_pass)
 
                     # Updating the List of all users' 2nd item's(The admins' line) string
-                    filelist[1] = CC.Caeser_Cipher(f'{str(filedict2)}\n')
-                    filelist[0] = CC.Caeser_Cipher(f'{str(filedict)}\n')
-                    filelist[2] = CC.Caeser_Cipher(str(filedict3))
+                    filelist[1] = (f'{str(fildict2)}\n')
+                    filelist[0] = (f'{str(fildict)}\n')
+                    filelist[2] = (str(fildict3))
                     
                     # Updating the file
                     File.seek(0)
@@ -83,12 +96,12 @@ def adminc(if_owner: bool = False):
 
                     # Creating a new key in the users dictionary as the username entered,
                     # then add its value as its password
-                    filedict[Usrnm_add] = Usrnm_pass
+                    fildict[CC.Caeser_Cipher(Usrnm_add)] = CC.Caeser_Cipher(Usrnm_pass)
 
                     # Updating the List of all users' 1st item's(The users' line) string
-                    filelist[1] = CC.Caeser_Cipher(f'{str(filedict2)}\n')
-                    filelist[0] = CC.Caeser_Cipher(f'{str(filedict)}\n')
-                    filelist[2] = CC.Caeser_Cipher(str(filedict3))
+                    filelist[1] = (f'{str(fildict2)}\n')
+                    filelist[0] = (f'{str(fildict)}\n')
+                    filelist[2] = (str(fildict3))
                     
                     # Updating the file
                     File.seek(0)
@@ -99,18 +112,29 @@ def adminc(if_owner: bool = False):
         elif Command == 'r':
             print('\nUsers:\n')
 
-            x = 1
-            # printing every key in the 1st dictionary(The users one) in a neat way
-            for key in filedict.keys():
-                print(f'{x}. {key}')
-                x+=1
+            if len(filedict.keys()) > 0:
+                x = 1
+                # printing every key in the 1st dictionary(The users one) in a neat way
+                for key in filedict.keys():
+                    print(f'{x}. {key}')
+                    x+=1
 
-            x = 1
-            # printing every key in the 2nd dictionary(The admins one) in a neat way
+            else:
+                print('No Users!\n')
+
             print('\nAdmins:\n')
-            for key in filedict2.keys():
-                print(f'{x}. {key}')
-                x+=1
+
+
+            if len(filedict2.keys()) > 0:
+
+                x = 1
+                # printing every key in the 2nd dictionary(The admins one) in a neat way
+                for key in filedict2.keys():
+                    print(f'{x}. {key}')
+                    x+=1
+
+            else:
+                print('\nNo Admins!\n')
 
 
         elif Command == 'rem':
@@ -125,7 +149,7 @@ def adminc(if_owner: bool = False):
             
             # Check if the username doesn't exist
             elif Usrnm_rem not in filedict and Usrnm_rem not in filedict2:
-                print('\nThis username doesn\'t exist!')
+                print("\nThis username doesn't exist!")
             
             # Check if the person to remove is a user, so an admin can also remove him
             elif Usrnm_rem in filedict:
@@ -133,13 +157,15 @@ def adminc(if_owner: bool = False):
             
             # Check if the person is an owner and the username to remove is an admin
             elif if_owner == True and Usrnm_rem in filedict2:
-                del(filedict2[Usrnm_rem])
+                del(fildict2[CC.Caeser_Ciphe(Usrnm_rem)])
             
             # Updating the list and the file
             File.seek(0)
             File.truncate()
-            filelist = [CC.Caeser_Cipher(str(filedict))+'\n', CC.Caeser_Cipher(str(filedict2))+'\n', CC.Caeser_Cipher(str(filedict3))]
-            File.writelines(CC.Caeser_Cipher(str(filelist)))
+            filelist[1] = (f'{str(fildict2)}\n')
+            filelist[0] = (f'{str(fildict)}\n')
+            filelist[2] = (str(fildict3))
+            File.writelines(filelist)
 
 
         elif Command == 'q':
@@ -149,3 +175,11 @@ def adminc(if_owner: bool = False):
         
         # V.Imp -> Close the file
         File.close()
+
+
+        for ii  in fildict.keys():
+            filedict[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict[ii])
+        for ii  in fildict2.keys():
+            filedict2[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict2[ii])
+        for ii  in fildict3.keys():
+            filedict3[CC.deCaeser_Cipher(ii)] = CC.deCaeser_Cipher(fildict3[ii])
