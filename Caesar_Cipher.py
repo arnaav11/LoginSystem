@@ -1,4 +1,4 @@
-def Caeser_Cipher(string: str, Shift: int = 7):
+def Caeser_Cipher(string: str = 'test', Shift: int = 7):
 
     """
     Converts given string into encrypted string with the caeser cipher method.
@@ -17,7 +17,7 @@ def Caeser_Cipher(string: str, Shift: int = 7):
     return(text_ciphered)
 
 
-def deCaeser_Cipher(string: str, Shift: int = 7):
+def deCaeser_Cipher(string: str = '{lz{', Shift: int = 7):
 
     """
     decrypts a string encrypted using caeser cipher, given the shift number.
@@ -34,3 +34,5 @@ def deCaeser_Cipher(string: str, Shift: int = 7):
 
 
     return(text_deciphered)
+
+print(Caeser_Cipher())
