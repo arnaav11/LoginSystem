@@ -1,8 +1,8 @@
 This is a login system(Which is very bad and insecure) which I made to learn python.
 
-PLEASE DO NOT ACTUALLY USE THIS. I am putting this so i can get feedbacks from you guys.
+PLEASE DO NOT ACTUALLY USE THIS.
 
-I will be updating this while i learn about security and more python to encrypt data and stuff.
+I will be updating this while i learn.
 
 
 
